@@ -1,0 +1,70 @@
+# Project No.: 5
+# Author: Sami Ibrahim
+# Description: making definitions, reading from a .csv file, validating input, data-mining,
+
+f_list = list()
+file_object = ()
+my_tot = dict()
+new_list = list()
+
+def get_input_descriptor():
+    while True:
+        filename = input("Enter a file name: ")
+        if filename == 'table.csv':
+            with open(filename, "r") as infile:
+                infile.readlines()[1:]
+                # for line in lines:
+                #     print(line.rstrip())
+                break
+        else:
+            print("Bad file name, try again")
+    return file_object
+
+def get_data_list(file_object, column_number):
+    dict = {}
+    for val in file_object:
+        date = val.split(",")[0]
+        data = float(val.split(",")[column_number])
+        dict[date] = data
+    return dict.items()
+
+def average_data(new_list):
+    for date, price in new_list:
+        my_tot[date] = my_tot.get(date, 0) + float(price)
+        my_times[date] = my_times.get(date, 0) + 1
+    for key in my_tot:
+        f_list.append((float(my_tot[key] / my_times[key]), key))
+
+
+def main():
+    get_input_descriptor()
+    column_number = int(input("Which column: "))
+    date_list = get_data_list(file_object, column_number)
+    final_list = average_data(date_list)
+    x = sorted(f_list)
+    print('Lowest', str(column_number) + ":")
+    for tup in x[:6]:
+        print
+        tup[0], tup[1]
+    print('Highest', str(column_number) + ":")
+    x = sorted(f_list, reverse=True)
+    for tup in x[:6]:
+        print
+        tup[0], tup[1]
+
+    while 1:
+        flag = input("do you want to continue? ")
+        if flag == '' or not flag[0].lower() in ['y', 'n']:
+            print("Please answer with a yes or no")
+        else:
+            break
+    if flag[0].lower() == 'y':
+        column = input("Which column: ")
+        print(column)
+
+    if flag[0].lower() == 'n':
+        print("Bye!")
+
+
+if __name__ == "__main__":
+    main()
