@@ -1,5 +1,5 @@
 # Project No.: 5
-# Author: Sami Ibrahim
+# Author: 
 # Description: making definitions, reading from a .csv file, validating input, data-mining,
 
 f_list = list()
